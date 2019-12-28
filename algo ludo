@@ -1,0 +1,376 @@
+from tkinter import *
+from math import *
+fenetre = Tk()
+import os
+e=0
+
+def test():
+    global a
+    global gateau1
+    a=liste.curselection()
+    #print(a)
+    if a==(0,):
+        a=35
+        gateau1="Tarte 100% vanille"
+    if a==(1,):
+        a=40
+        gateau1="Kubik's cake"
+    if a==(2,):
+        a=35
+        gateau1="Tarte aux pommes"
+    if a==(3,):
+        a=17
+        gateau1="Pomme Granny Smith"
+    if a==(4,):
+        a=5
+        gateau1="Cookies"
+    if a==(5,):
+        a=14
+        gateau1="Mont blanc"
+    #print(a)
+    labeltest1 = Label(frame1, text=gateau1, bg="green")
+    labeltest1.pack()
+
+def test1():
+    global a1
+    global gateau2
+    global e
+    a1=liste1.curselection()
+    #print(a1)
+    if a1==(0,):
+        a1=35
+        gateau2="Tarte 100% vanille"
+    if a1==(1,):
+        a1=40
+        gateau2="Rubik's cake"
+    if a1==(2,):
+        a1=35
+        gateau2="Tarte aux pommes"
+    if a1==(3,):
+        a1=17
+        gateau2="Pomme Granny Smith"
+    if a1==(4,):
+        a1=5
+        gateau2="Cookies"
+    if a1==(5,):
+        a1=14
+        gateau2="Mont blanc"
+    #print(a1)
+    labeltest2 = Label(frame2, text=gateau2, bg="green")
+    labeltest2.pack()
+
+def test2():
+    global mini
+    global e
+    mini=var_min.get()
+    if mini<=0:
+        labeltest3 = Label(frame3, text="Nombre négatif non accepter", bg="red")
+        labeltest3.pack()
+        e=1
+    else:
+        labeltest3 = Label(frame3, text=mini, bg="green")
+        labeltest3.pack()
+        e=0
+    #print(mini)
+
+def test3():
+    global maxi
+    global mini
+    global e
+    maxi=var_max.get()
+    if maxi<=mini:
+        labeltest4 = Label(frame4, text="Le budget max. ne peut pas être inférieur au budget mini", bg="red")
+        labeltest4.pack()
+        e=1
+    if maxi<=0:
+        labeltest4 = Label(frame4, text="Nombre négatif non accepter", bg="red")
+        labeltest4.pack()
+        e=1
+    if 0<=maxi>=mini:
+        labeltest4 = Label(frame4, text=maxi, bg="green")
+        labeltest4.pack()
+        e=0
+    #print(maxi)
+
+def totgat():
+    global totgat
+    global e
+    totgat=tot_gat.get()
+    if totgat<=0:
+        labeltest5 = Label(frame5, text="Nombre négatif non accepter", bg="red")
+        labeltest5.pack()
+        e=1
+    else:
+        labeltest5 = Label(frame5, text=totgat, bg="green")
+        labeltest5.pack()
+        e=0
+
+    #print(totgat)
+
+def html():
+    global tri
+    global gateau1
+    global gateau2
+    x=0
+    sauv=tri[0][0]
+    fichier=open("results.html", "w")
+    fichier.write("<html><head><link rel='stylesheet' type='text/css' href='style.css' title='default'/></head>")
+    fichier.write("<fieldset class='fieldset'><img src='rubik.jpg' class='img'/><img src='cedric.jpg' class='img'/><img src='vanille.jpg' class='img'/></fieldset>")
+    fichier.write("<a href='results2.html'  class='lien'> Tableau des possibilitées spéciales</a>")
+    fichier.write("<h1>Tableaux récapitulatif des différentes possibilités</h1>")
+    while x!=len(tri):
+        sauv=tri[x][0]
+        #print(sauv)
+        #print(x)
+        fichier.write("<table> <tr class='f1'> <td>Budget en €</td> <td> Nombre de ")
+        fichier.write(gateau1)
+        fichier.write("</td> <td>Nombre de  ")
+        fichier.write(gateau2)
+        fichier.write("</td> <td>Nombre de desserts total</td> </tr>")
+        fichier.close()
+        fichier=open("results.html", "a")
+        while sauv == tri[x][0]:
+            fichier.write("\n <tr> <td>")
+            fichier.write(str(tri[x][0]))
+            fichier.write("</td> <td>")
+            fichier.write(str(tri[x][2][0]))
+            fichier.write("</td> <td> ")
+            fichier.write(str(tri[x][2][1]))
+            fichier.write("</td> <td>")
+            fichier.write(str(tri[x][1]))
+            fichier.write("</td></tr>")
+            sauv = tri[x][0]
+            x+=1
+            if x==len(tri):
+                break
+
+        fichier.write("</table></html>")
+    fichier.close()
+    os.system ("start results.html")
+
+def html2():
+    global tri
+    global gateau1
+    global gateau2
+    x=0
+    fichier=open("results2.html", "w")
+    fichier.write("<html><head><link rel='stylesheet' type='text/css' href='style.css' title='default'/></head>")
+    fichier.write("<fieldset class='fieldset'><img src='rubik.jpg' class='img'/><img src='cedric.jpg' class='img'/><img src='vanille.jpg' class='img'/></fieldset>")
+    fichier.write("<a href='results.html' class='lien' > Tableau de toutes les possibilitées</a>")
+    fichier.write("<h1>Tableaux récapitulatif des possibilitées spéciales</h1>")
+    fichier.write("<h2>Combinaisons pour qu'il y est autant de ")
+    fichier.write(gateau1)
+    fichier.write(" que de ")
+    fichier.write(gateau2)
+    fichier.write("</h2>")
+    fichier.write("<table> <tr class='f1'> <td>Budget en €</td> <td> Nombre de ")
+    fichier.write(gateau1)
+    fichier.write("</td> <td>Nombre de  ")
+    fichier.write(gateau2)
+    fichier.write("</td> <td>Nombre de desserts total</td> </tr>")
+    fichier.close()
+    fichier=open("results2.html", "a")
+    while x!=len(tri):
+        if tri[x][2][0]==tri[x][2][1]:
+            fichier.write("\n <tr> <td>")
+            fichier.write(str(tri[x][0]))
+            fichier.write("</td> <td>")
+            fichier.write(str(tri[x][2][0]))
+            fichier.write("</td> <td> ")
+            fichier.write(str(tri[x][2][1]))
+            fichier.write("</td> <td>")
+            fichier.write(str(tri[x][1]))
+            fichier.write("</td></tr>")
+            x+=1
+        else:
+            x+=1
+    fichier.write("</table></html>")
+    fichier.close()
+    html22()
+
+
+def html22():
+    global tri
+    global gateau1
+    global gateau2
+    global totgat
+    x=0
+    fichier=open("results2.html", "a")
+    fichier.write("<h2>Combinaisons pour qu'il y est ")
+    fichier.write(str(totgat))
+    fichier.write(" gâteaux en tout</h2>")
+    fichier.write("<table> <tr class='f1'> <td>Budget en €</td> <td> Nombre de ")
+    fichier.write(gateau1)
+    fichier.write("</td> <td>Nombre de  ")
+    fichier.write(gateau2)
+    fichier.write("</td> <td>Nombre de desserts total</td> </tr>")
+    fichier.close()
+    fichier=open("results2.html", "a")
+    while x!=len(tri):
+        if tri[x][1]==totgat:
+            fichier.write("\n <tr> <td>")
+            fichier.write(str(tri[x][0]))
+            fichier.write("</td> <td>")
+            fichier.write(str(tri[x][2][0]))
+            fichier.write("</td> <td> ")
+            fichier.write(str(tri[x][2][1]))
+            fichier.write("</td> <td>")
+            fichier.write(str(tri[x][1]))
+            fichier.write("</td></tr>")
+            x+=1
+        else:
+            x+=1
+    fichier.write("</table></html>")
+    fichier.close()
+
+
+def ahah():
+    global tri
+    tri=[]
+    global prix
+    global tot
+    global sauv
+    x=len(prix)-1
+    while x != 0:
+        tri.append([prix[x], tot[x], sauv[x]])
+        tri.sort()
+        x-=1
+    #print (tri)
+
+def final():
+    global a
+    global a1
+    global maxi
+    global mini
+    global prix
+    global sauv
+    global tot
+    global e
+    if e == 0:
+        rc=a
+        v=a1
+        xmax=floor(maxi/rc)
+        #print(xmax)
+        ymax=floor(maxi/v)
+        #print(ymax)
+        x=0
+        y=0
+        sauv=[]
+        tot=[]
+        prix=[]
+        z=0
+        while x<=xmax:
+            while y<=ymax:
+                inter=rc*x+v*y
+                if inter>=mini and inter<=maxi:
+                    prix.append(inter)
+                    sauv.append([x,y])
+                    tot.append(x+y)
+                    y+=1
+                    z+=1
+                else:
+                    y+=1
+            y=0
+            x+=1
+        #print (sauv)
+        #print (tot)
+        #print(len(tot))
+        #print(prix)
+        ahah()
+        html()
+        html2()
+    else:
+        labelfin = Label(fenetre, text="Il y a une erreur quelque part. Le calcul ne peut être effectuer. Veuillez remplir a nouveau le formulaire. ", bg="red")
+        labelfin.pack()
+
+
+frame1= Frame(fenetre, width=2000, height=1500, borderwidth=1)
+frame1.pack(fill=Y)
+
+label = Label(frame1, text="veuillez choisir un premier dessert", width=50)
+label.pack()
+
+liste = Listbox(frame1, height= 10, width=40)
+#liste = Listbox(fenetre, width=40)
+liste.pack()
+liste.insert(END, "Tarte 100% vanille (35€)")
+liste.insert(END, "Rubik's Cake (40€)")
+liste.insert(END, "Tarte aux Pommes (35€)")
+liste.insert(END, "Pomme Granny Smith (17€)")
+liste.insert(END, "Cookies (5€)")
+liste.insert(END, "Mont Blanc (14€)")
+
+
+bouton_valider = Button(frame1, text="valider", command=test)
+#bouton_valider = Button(fenetre, text="valider", command=test)
+bouton_valider.pack()
+
+frame2= Frame(fenetre, width=2000, height=1500, borderwidth=1)
+frame2.pack(fill=Y)
+
+label = Label(frame2, text="veuillez choisir un deuxième dessert")
+label.pack()
+
+liste1 = Listbox(frame2, height= 10, width=40)
+#liste1 = Listbox(fenetre, width=40)
+liste1.pack()
+liste1.insert(END, "Tarte 100% vanille (35€)")
+liste1.insert(END, "Rubik's Cake (40€)")
+liste1.insert(END, "Tarte aux Pommes (35€)")
+liste1.insert(END, "Pomme Granny Smith (17€)")
+liste1.insert(END, "Cookies (5€)")
+liste1.insert(END, "Mont Blanc (14€)")
+
+bouton_valider = Button(frame2, text="valider", command=test1)
+#bouton_valider = Button(fenetre, text="valider", command=test1)
+bouton_valider.pack()
+
+
+frame5= Frame(fenetre, width=2000, height=1500, borderwidth=1)
+frame5.pack(fill=Y)
+
+label = Label(frame5, text="nombre de gateau total souhaité (option)")
+label.pack()
+
+tot_gat = IntVar()
+ligne_min = Entry(frame5, textvariable=tot_gat, width=30)
+ligne_min.pack()
+
+bouton_valider = Button(frame5, text="valider", command=totgat)
+bouton_valider.pack()
+
+
+frame3= Frame(fenetre, width=2000, height=1500, borderwidth=1)
+frame3.pack(fill=Y)
+
+label = Label(frame3, text="Budget mini")
+label.pack()
+
+var_min = IntVar()
+ligne_min = Entry(frame3, textvariable=var_min, width=30)
+ligne_min.pack()
+
+bouton_valider = Button(frame3, text="valider", command=test2)
+bouton_valider.pack()
+
+
+frame4= Frame(fenetre, width=2000, height=1500, borderwidth=1)
+frame4.pack(fill=Y)
+
+label = Label(frame4, text="Budget max")
+label.pack()
+
+var_max = IntVar()
+ligne_max = Entry(frame4, textvariable=var_max, width=30)
+ligne_max.pack()
+
+bouton_valider = Button(frame4, text="valider", command=test3)
+bouton_valider.pack()
+
+
+bouton_final = Button(fenetre, text="calculer les différentes possibilités", command=final)
+bouton_final.pack()
+
+fenetre.mainloop()
+
+
