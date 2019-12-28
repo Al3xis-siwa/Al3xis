@@ -1,0 +1,24 @@
+x = 0                                #défini la variable x car besoin pour plus tard
+liste_cout_total = []
+liste_desserts = []                  #j'introduis une liste vide
+fichier = open("repas.txt", "w")     #ouvre un fichier pour écrire dedans
+while x <= 65:                       #condition pour x inférieur à 65
+    for y in range(0,75):            #pour chaque valeur de x je fais défiler toutes les valeurs de y
+        d = 40*x + 35*y              #défini variable d soit le coût total
+        d == 40*x + 35*y             #de façons à faire évoluer la valeur de d en fonction de x et y
+        if d >= 2000 and d <= 2600:  #je ne retiens que les valeurs de d situées entre 2000 et 2600 compris
+            liste_cout_total.append((" Vous pouvez commander ",x+y," gâteaux soit ",x," rubik's cakes et ",y," 100% vanille pour ",d," euros "))
+            print(liste_cout_total)
+    x = x + 1                                          #j'ajoute un 1 à x à la fin du cycle y
+
+sorted(liste_cout_total, key=lambda colonnes: colonnes[7])
+
+liste_desserts.append(liste_cout_total)
+str = ''.join(str(elem) for elem in (liste_desserts))          #je convertis ma liste en chaîne de caractères
+fichier.write(str)
+fichier.close()
+
+
+
+
+
